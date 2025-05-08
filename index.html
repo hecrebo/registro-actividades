@@ -1,0 +1,91 @@
+<script src="ubicaciones.js"></script>
+<script>
+function actualizarMunicipios() {
+    const estadoSelect = document.getElementById('estado');
+    const municipioSelect = document.getElementById('municipio');
+    const parroquiaSelect = document.getElementById('parroquia');
+    
+    // Limpiar opciones actuales
+    municipioSelect.innerHTML = '<option value="">Seleccione un municipio</option>';
+    parroquiaSelect.innerHTML = '<option value="">Seleccione una parroquia</option>';
+    
+    const estadoSeleccionado = estadoSelect.value;
+    if (estadoSeleccionado && datosUbicacion[estadoSeleccionado]) {
+        const municipios = datosUbicacion[estadoSeleccionado].municipios;
+        for (const municipio in municipios) {
+            const option = document.createElement('option');
+            option.value = municipio;
+            option.textContent = municipio;
+            municipioSelect.appendChild(option);
+        }
+    }
+}
+
+function actualizarParroquias() {
+    const estadoSelect = document.getElementById('estado');
+    const municipioSelect = document.getElementById('municipio');
+    const parroquiaSelect = document.getElementById('parroquia');
+    
+    // Limpiar opciones actuales
+    parroquiaSelect.innerHTML = '<option value="">Seleccione una parroquia</option>';
+    
+    const estadoSeleccionado = estadoSelect.value;
+    const municipioSeleccionado = municipioSelect.value;
+    
+    if (estadoSeleccionado && municipioSeleccionado && 
+        datosUbicacion[estadoSeleccionado] && 
+        datosUbicacion[estadoSeleccionado].municipios[municipioSeleccionado]) {
+        
+        const parroquias = datosUbicacion[estadoSeleccionado].municipios[municipioSeleccionado];
+        parroquias.forEach(parroquia => {
+            const option = document.createElement('option');
+            option.value = parroquia;
+            option.textContent = parroquia;
+            parroquiaSelect.appendChild(option);
+        });
+    }
+}
+</script>
+
+<div class="form-group">
+    <label for="estado">Estado:</label>
+    <select class="form-control" id="estado" onchange="actualizarMunicipios()" required>
+        <option value="">Seleccione un estado</option>
+        <option value="Amazonas">Amazonas</option>
+        <option value="Anzoátegui">Anzoátegui</option>
+        <option value="Apure">Apure</option>
+        <option value="Aragua">Aragua</option>
+        <option value="Barinas">Barinas</option>
+        <option value="Bolívar">Bolívar</option>
+        <option value="Carabobo">Carabobo</option>
+        <option value="Cojedes">Cojedes</option>
+        <option value="Delta Amacuro">Delta Amacuro</option>
+        <option value="Distrito Capital">Distrito Capital</option>
+        <option value="Falcón">Falcón</option>
+        <option value="Guárico">Guárico</option>
+        <option value="Lara">Lara</option>
+        <option value="Mérida">Mérida</option>
+        <option value="Miranda">Miranda</option>
+        <option value="Monagas">Monagas</option>
+        <option value="Nueva Esparta">Nueva Esparta</option>
+        <option value="Portuguesa">Portuguesa</option>
+        <option value="Sucre">Sucre</option>
+        <option value="Táchira">Táchira</option>
+        <option value="Trujillo">Trujillo</option>
+        <option value="Vargas">Vargas</option>
+        <option value="Yaracuy">Yaracuy</option>
+        <option value="Zulia">Zulia</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="municipio">Municipio:</label>
+    <select class="form-control" id="municipio" onchange="actualizarParroquias()" required>
+        <option value="">Seleccione un municipio</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="parroquia">Parroquia:</label>
+    <select class="form-control" id="parroquia" required>
+        <option value="">Seleccione una parroquia</option>
+    </select>
+</div> 
